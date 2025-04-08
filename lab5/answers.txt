@@ -1,0 +1,11 @@
+| what is the role of the transpose layer after input?
+
+Since the input spec of our network is of shape (N, W, H, C) and the ONNX
+requires (N, C, W, H), see https://onnx.ai/onnx/operators/onnx__Conv.html#inputs,
+the conversion tool has to use Transpose layer.
+
+| what is the role of the GlobalAveragePool layer after the last Concat layer?
+
+GAP, contrary to convolution, does not require parameters, yet it still
+aggregates feature maps, and allows to apply Squeeze layer after it in order to
+feed it into MatMul layer with only 48x3 weight shape.
